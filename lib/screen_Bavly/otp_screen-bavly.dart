@@ -16,7 +16,8 @@ class _Otp_Screen_bavlyState extends State<Otp_Screen_bavly> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child:  const Center(
+        child: isLoading == true
+            ? const Center(
                 child: CircularProgressIndicator(
                   color: Colors.purple,
                 ),
@@ -95,7 +96,11 @@ class _Otp_Screen_bavlyState extends State<Otp_Screen_bavly> {
                         child: CustomButton_Bavly(
                           text: "Verify",
                           onPressed: () {
-                            
+                            if (otpCode != null) {
+                              verifyOtp(context, otpCode!);
+                            } else {
+                              showSnackBar(context, "Enter 6-Digit code");
+                            }
                           },
                         ),
                       ),
