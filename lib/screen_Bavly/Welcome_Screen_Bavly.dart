@@ -20,7 +20,7 @@ class _welcomeState extends State<welcome> {
           child: Column(
             children: [
               Image.asset(
-                "assets/image/image1",
+                "assets/image/image1.png",
                 height: 300,
               ),
               const SizedBox(
