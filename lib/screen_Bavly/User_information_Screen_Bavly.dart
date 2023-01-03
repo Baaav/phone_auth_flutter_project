@@ -56,10 +56,30 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
                   child: Column(
                     children: [
                       // name field
-
+                      textFeld(
+                        hintText: "John Smith",
+                        icon: Icons.account_circle,
+                        inputType: TextInputType.name,
+                        maxLines: 1,
+                        controller: nameController,
+                      ),
                       //email
+                      textFeld(
+                        hintText: "abcdef@example.com",
+                        icon: Icons.email,
+                        inputType: TextInputType.emailAddress,
+                        maxLines: 1,
+                        controller: emailController,
+                      ),
 
                       //bio
+                      textFeld(
+                        hintText: "Enter Your bio",
+                        icon: Icons.edit,
+                        inputType: TextInputType.name,
+                        maxLines: 2,
+                        controller: bioController,
+                      ),
                     ],
                   ),
                 ),
@@ -81,4 +101,44 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
       ),
     );
   }
+}
+
+Widget textFeld(
+    {required String hintText,
+    required IconData icon,
+    required TextInputType inputType,
+    required int maxLines,
+    required TextEditingController controller}) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 10),
+    child: TextFormField(
+      cursorColor: Colors.purple,
+      controller: controller,
+      keyboardType: inputType,
+      maxLines: maxLines,
+      decoration: InputDecoration(
+        prefixIcon: Container(
+          margin: const EdgeInsets.all(8.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            color: Colors.purple,
+          ),
+          child: Icon(
+            icon,
+            size: 20,
+            color: Colors.white,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(color: Colors.purple),
+        ),
+        hintText: hintText,
+        alignLabelWithHint: true,
+        border: InputBorder.none,
+        fillColor: Colors.purple.shade50,
+        filled: true,
+      ),
+    ),
+  );
 }
