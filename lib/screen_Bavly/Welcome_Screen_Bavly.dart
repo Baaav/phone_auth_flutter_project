@@ -48,7 +48,7 @@ class _welcomeState extends State<welcome> {
                 height: 50,
                 child: CustomButton_Bavly(
                   onPressed: () {
-                    ap.isSignedIn == true
+                    ap.isSignedIn == false
                         ? Navigator.push(
                             context,
                             MaterialPageRoute(
