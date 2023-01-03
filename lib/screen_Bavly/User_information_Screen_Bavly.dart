@@ -1,8 +1,13 @@
 import 'dart:html';
+import 'dart:js';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:phone_auth_flutter_project/Provider_Bavly/auth_provider.dart';
 import 'package:phone_auth_flutter_project/Widget_bavly/Custom_Button_Bavly.dart';
+import 'package:phone_auth_flutter_project/screen_Bavly/Home_Screen_Bavly.dart';
+import 'package:phone_auth_flutter_project/util_bavly/util_Bavly.dart';
+import 'package:provider/provider.dart';
 
 class UserInformationScreen extends StatefulWidget {
   const UserInformationScreen({super.key});
@@ -100,45 +105,78 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
         ),
       ),
     );
-  }
-}
+    void storeData() async {
+      final ap = Provider.of<Auth_Provider_Bavly>(context, listen: false);
+      UserModel userModel = UserModel(
+        name: nameController.text.trim(),
+        email: emailController.text.trim(),
+        bio: bioController.text.trim(),
+        profilePic: "",
+        createdAt: "",
+        phoneNumber: "",
+        uid: "",
+      );
+      if (image != null) {
+        ap.saveUserDataToFirebase(
+          context: context,
+          userModel: userModel,
+          profilePic: image!,
+          onSuccess: () {
+            ap.saveUserDataToSP().then(
+                  (value) => ap.setSignIn().then(
+                        (value) => Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const HomeScreenBavly(),
+                            ),
+                            (route) => false),
+                      ),
+                );
+          },
+        );
+      } else {
+        showSnackBar(context, "Please upload your profile photo");
+      }
+    }
 
-Widget textFeld(
-    {required String hintText,
-    required IconData icon,
-    required TextInputType inputType,
-    required int maxLines,
-    required TextEditingController controller}) {
-  return Padding(
-    padding: const EdgeInsets.only(bottom: 10),
-    child: TextFormField(
-      cursorColor: Colors.purple,
-      controller: controller,
-      keyboardType: inputType,
-      maxLines: maxLines,
-      decoration: InputDecoration(
-        prefixIcon: Container(
-          margin: const EdgeInsets.all(8.0),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: Colors.purple,
-          ),
-          child: Icon(
-            icon,
-            size: 20,
-            color: Colors.white,
+    Widget textFeld(
+        {required String hintText,
+        required IconData icon,
+        required TextInputType inputType,
+        required int maxLines,
+        required TextEditingController controller}) {
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: TextFormField(
+          cursorColor: Colors.purple,
+          controller: controller,
+          keyboardType: inputType,
+          maxLines: maxLines,
+          decoration: InputDecoration(
+            prefixIcon: Container(
+              margin: const EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: Colors.purple,
+              ),
+              child: Icon(
+                icon,
+                size: 20,
+                color: Colors.white,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(color: Colors.purple),
+            ),
+            hintText: hintText,
+            alignLabelWithHint: true,
+            border: InputBorder.none,
+            fillColor: Colors.purple.shade50,
+            filled: true,
           ),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Colors.purple),
-        ),
-        hintText: hintText,
-        alignLabelWithHint: true,
-        border: InputBorder.none,
-        fillColor: Colors.purple.shade50,
-        filled: true,
-      ),
-    ),
-  );
+      );
+    }
+  }
 }
