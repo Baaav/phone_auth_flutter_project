@@ -3,6 +3,7 @@ import 'dart:js';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:phone_auth_flutter_project/Model_Bavly/user_Model_Bavly.dart';
 import 'package:phone_auth_flutter_project/Provider_Bavly/auth_provider.dart';
 import 'package:phone_auth_flutter_project/Widget_bavly/Custom_Button_Bavly.dart';
 import 'package:phone_auth_flutter_project/screen_Bavly/Home_Screen_Bavly.dart';
@@ -40,21 +41,6 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
           child: Center(
             child: Column(
               children: [
-                InkWell(
-                  onTap: () {},
-                  child: image == null
-                      ? const CircleAvatar(
-                          backgroundColor: Colors.purple,
-                          radius: 50,
-                          child: Icon(
-                            Icons.account_circle,
-                            size: 50,
-                            color: Colors.white,
-                          ),
-                        )
-                      : CircleAvatar(
-                          backgroundImage: FileImage(image!), radius: 50),
-                ),
                 Container(
                   width: MediaQuery.of(context).size.width,
                   padding: const EdgeInsets.only(top: 20),
@@ -138,45 +124,45 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
         showSnackBar(context, "Please upload your profile photo");
       }
     }
+  }
 
-    Widget textFeld(
-        {required String hintText,
-        required IconData icon,
-        required TextInputType inputType,
-        required int maxLines,
-        required TextEditingController controller}) {
-      return Padding(
-        padding: const EdgeInsets.only(bottom: 10),
-        child: TextFormField(
-          cursorColor: Colors.purple,
-          controller: controller,
-          keyboardType: inputType,
-          maxLines: maxLines,
-          decoration: InputDecoration(
-            prefixIcon: Container(
-              margin: const EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: Colors.purple,
-              ),
-              child: Icon(
-                icon,
-                size: 20,
-                color: Colors.white,
-              ),
+  Widget textFeld(
+      {required String hintText,
+      required IconData icon,
+      required TextInputType inputType,
+      required int maxLines,
+      required TextEditingController controller}) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: TextFormField(
+        cursorColor: Colors.purple,
+        controller: controller,
+        keyboardType: inputType,
+        maxLines: maxLines,
+        decoration: InputDecoration(
+          prefixIcon: Container(
+            margin: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: Colors.purple,
             ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: Colors.purple),
+            child: Icon(
+              icon,
+              size: 20,
+              color: Colors.white,
             ),
-            hintText: hintText,
-            alignLabelWithHint: true,
-            border: InputBorder.none,
-            fillColor: Colors.purple.shade50,
-            filled: true,
           ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: Colors.purple),
+          ),
+          hintText: hintText,
+          alignLabelWithHint: true,
+          border: InputBorder.none,
+          fillColor: Colors.purple.shade50,
+          filled: true,
         ),
-      );
-    }
+      ),
+    );
   }
 }
