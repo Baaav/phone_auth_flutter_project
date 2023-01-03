@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:phone_auth_flutter_project/Provider_Bavly/auth_provider.dart';
 import 'package:phone_auth_flutter_project/Widget_bavly/Custom_Button_Bavly.dart';
 import 'package:phone_auth_flutter_project/util_bavly/util_Bavly.dart';
 import 'package:pinput/pinput.dart';
+import 'package:provider/provider.dart';
 
 class Otp_Screen_bavly extends StatefulWidget {
   final String verificationId;
@@ -15,9 +17,7 @@ class _Otp_Screen_bavlyState extends State<Otp_Screen_bavly> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: isLoading == true
-            ? const Center(
+      body: SafeArea( const Center(
                 child: CircularProgressIndicator(
                   color: Colors.purple,
                 ),
@@ -85,7 +85,7 @@ class _Otp_Screen_bavlyState extends State<Otp_Screen_bavly> {
                         ),
                         onCompleted: (value) {
                           setState(() {
-                            otpCode = value;
+                            
                           });
                         },
                       ),
@@ -96,11 +96,7 @@ class _Otp_Screen_bavlyState extends State<Otp_Screen_bavly> {
                         child: CustomButton_Bavly(
                           text: "Verify",
                           onPressed: () {
-                            if (otpCode != null) {
-                              verifyOtp(context, otpCode!);
-                            } else {
-                              showSnackBar(context, "Enter 6-Digit code");
-                            }
+                            
                           },
                         ),
                       ),
@@ -129,4 +125,20 @@ class _Otp_Screen_bavlyState extends State<Otp_Screen_bavly> {
       ),
     );
   }
+  void verifyOtp(BuildContext context, String userOtp) {
+    final ap = Provider.of<Auth_Provider_Bavly>(context, listen: false);
+    ap.verifyOtp(
+      context: context,
+      verificationId: widget.verificationId,
+      userOtp: userOtp,
+      onSuccess: () {
+        // checking whether user exists in the db
+        
+             
+          },
+        );
+      },
+    );
+  }
+
 }
