@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:phone_auth_flutter_project/screen_Bavly/Welcome_Screen_Bavly.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const MyApp());
 }
 
