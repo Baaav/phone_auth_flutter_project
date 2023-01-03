@@ -140,7 +140,8 @@ class _RegisterScreen_BavlyState extends State<RegisterScreen_Bavly> {
                 SizedBox(
                   width: double.infinity,
                   height: 50,
-                  child: CustomButton_Bavly(text: "Login", onPressed: () {}),
+                  child: CustomButton_Bavly(
+                      text: "Login", onPressed: () => sendPhoneNumber()),
                 ),
               ],
             ),
