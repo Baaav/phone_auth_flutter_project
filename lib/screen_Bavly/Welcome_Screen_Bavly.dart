@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:phone_auth_flutter_project/Provider_Bavly/auth_provider.dart';
 import 'package:phone_auth_flutter_project/Widget_bavly/Custom_Button_Bavly.dart';
 import 'package:phone_auth_flutter_project/screen_Bavly/Register_Screen_Bavly.dart';
+import 'package:provider/provider.dart';
 
 class welcome extends StatefulWidget {
   const welcome({super.key});
@@ -12,6 +14,7 @@ class welcome extends StatefulWidget {
 class _welcomeState extends State<welcome> {
   @override
   Widget build(BuildContext context) {
+    final ap = Provider.of<Auth_Provider_Bavly>(context, listen: false);
     return Scaffold(
       body: SafeArea(
           child: Center(
@@ -44,11 +47,18 @@ class _welcomeState extends State<welcome> {
                 height: 50,
                 child: CustomButton_Bavly(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => RegisterScreen_Bavly()),
-                    );
+                    ap.isSignedIn == true
+                        ? Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                             
+                             )
+                        : Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                             
+                             )
+                             );
                   },
                   text: "Get started",
                 ),
