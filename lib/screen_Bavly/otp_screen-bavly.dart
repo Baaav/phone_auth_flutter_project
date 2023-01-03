@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:phone_auth_flutter_project/Provider_Bavly/auth_provider.dart';
 import 'package:phone_auth_flutter_project/Widget_bavly/Custom_Button_Bavly.dart';
+import 'package:phone_auth_flutter_project/screen_Bavly/Home_Screen_Bavly.dart';
+import 'package:phone_auth_flutter_project/screen_Bavly/User_information_Screen_Bavly.dart';
 import 'package:phone_auth_flutter_project/util_bavly/util_Bavly.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
@@ -14,10 +16,15 @@ class Otp_Screen_bavly extends StatefulWidget {
 }
 
 class _Otp_Screen_bavlyState extends State<Otp_Screen_bavly> {
+  String? otpCode;
   @override
   Widget build(BuildContext context) {
+    final isLoading =
+        Provider.of<Auth_Provider_Bavly>(context, listen: true).isLoading;
     return Scaffold(
-      body: SafeArea( const Center(
+      body: SafeArea(
+        child: isLoading == true
+            ? const Center(
                 child: CircularProgressIndicator(
                   color: Colors.purple,
                 ),
@@ -85,7 +92,7 @@ class _Otp_Screen_bavlyState extends State<Otp_Screen_bavly> {
                         ),
                         onCompleted: (value) {
                           setState(() {
-                            
+                            otpCode = value;
                           });
                         },
                       ),
@@ -96,7 +103,11 @@ class _Otp_Screen_bavlyState extends State<Otp_Screen_bavly> {
                         child: CustomButton_Bavly(
                           text: "Verify",
                           onPressed: () {
-                            
+                            if (otpCode != null) {
+                              verifyOtp(context, otpCode!);
+                            } else {
+                              showSnackBar(context, "Enter 6-Digit code");
+                            }
                           },
                         ),
                       ),
@@ -125,6 +136,7 @@ class _Otp_Screen_bavlyState extends State<Otp_Screen_bavly> {
       ),
     );
   }
+
   void verifyOtp(BuildContext context, String userOtp) {
     final ap = Provider.of<Auth_Provider_Bavly>(context, listen: false);
     ap.verifyOtp(
@@ -133,12 +145,34 @@ class _Otp_Screen_bavlyState extends State<Otp_Screen_bavly> {
       userOtp: userOtp,
       onSuccess: () {
         // checking whether user exists in the db
-        
-             
+        ap.checkExistingUser().then(
+          (value) async {
+            if (value == true) {
+              // user exists in our app
+              ap.getDataFromFirestore().then(
+                    (value) => ap.saveUserDataToSP().then(
+                          (value) => ap.setSignIn().then(
+                                (value) => Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const HomeScreenBavly(),
+                                    ),
+                                    (route) => false),
+                              ),
+                        ),
+                  );
+            } else {
+              // new user
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const UserInformationScreen()),
+                  (route) => false);
+            }
           },
         );
       },
     );
   }
-
 }
