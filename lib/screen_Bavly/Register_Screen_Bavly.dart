@@ -1,3 +1,4 @@
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phone_auth_flutter_project/Widget_bavly/Custom_Button_Bavly.dart';
@@ -11,6 +12,18 @@ class RegisterScreen_Bavly extends StatefulWidget {
 
 class _RegisterScreen_BavlyState extends State<RegisterScreen_Bavly> {
   final TextEditingController phoneController = TextEditingController();
+
+  Country selectedCountry = Country(
+      phoneCode: "20",
+      countryCode: "EG",
+      e164Sc: 0,
+      geographic: true,
+      level: 1,
+      name: "Egypt",
+      example: "Egypt",
+      displayName: "Egypt",
+      displayNameNoCountryCode: "EG",
+      e164Key: "");
 
   @override
   Widget build(BuildContext context) {
@@ -82,8 +95,25 @@ class _RegisterScreen_BavlyState extends State<RegisterScreen_Bavly> {
                     prefixIcon: Container(
                       padding: const EdgeInsets.all(8.0),
                       child: InkWell(
-                        onTap: () {},
-                        child: Text(""),
+                        onTap: () {
+                          showCountryPicker(
+                              context: context,
+                              countryListTheme: const CountryListThemeData(
+                                bottomSheetHeight: 550,
+                              ),
+                              onSelect: (value) {
+                                setState(() {
+                                  selectedCountry = value;
+                                });
+                              });
+                        },
+                        child: Text(
+                          "${selectedCountry.flagEmoji} + ${selectedCountry.phoneCode}",
+                          style: const TextStyle(
+                              fontSize: 18,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                     suffixIcon: phoneController.text.length > 9
