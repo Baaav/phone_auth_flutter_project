@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phone_auth_flutter_project/Widget_bavly/Custom_Button_Bavly.dart';
 
 class welcome extends StatefulWidget {
   const welcome({super.key});
@@ -37,6 +38,14 @@ class _welcomeState extends State<welcome> {
               const SizedBox(
                 height: 20,
               ),
+              SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: CustomButton_Bavly(
+                  onPressed: () {},
+                  text: "Get started",
+                ),
+              )
             ],
           ),
         ),
