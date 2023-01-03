@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phone_auth_flutter_project/Provider_Bavly/auth_provider.dart';
+import 'package:phone_auth_flutter_project/screen_Bavly/Welcome_Screen_Bavly.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreenBavly extends StatefulWidget {
@@ -15,6 +16,25 @@ class _HomeScreenBavlyState extends State<HomeScreenBavly> {
     final ap = Provider.of<Auth_Provider_Bavly>(context, listen: false);
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.purple,
+        title: const Text("FlutterPhone Auth"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              ap.userSignOut().then(
+                    (value) => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const welcome(),
+                      ),
+                    ),
+                  );
+            },
+            icon: const Icon(Icons.exit_to_app),
+          ),
+        ],
+      ),
       body: Center(child: Text("HomeScreen")),
     );
   }
