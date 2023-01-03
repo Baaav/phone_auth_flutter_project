@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phone_auth_flutter_project/Widget_bavly/Custom_Button_Bavly.dart';
+import 'package:phone_auth_flutter_project/screen_Bavly/Register_Screen_Bavly.dart';
 
 class welcome extends StatefulWidget {
   const welcome({super.key});
@@ -42,7 +43,13 @@ class _welcomeState extends State<welcome> {
                 width: double.infinity,
                 height: 50,
                 child: CustomButton_Bavly(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => RegisterScreen_Bavly()),
+                    );
+                  },
                   text: "Get started",
                 ),
               )
