@@ -153,5 +153,6 @@ class _RegisterScreen_BavlyState extends State<RegisterScreen_Bavly> {
   void sendPhoneNumber() {
     final ap = Provider.of<Auth_Provider_Bavly>(context, listen: false);
     String phoneNumber = phoneController.text.trim();
+    ap.signInWithPhone(context, "+${selectedCountry.phoneCode}$phoneNumber");
   }
 }
