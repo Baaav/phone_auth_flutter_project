@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:html';
 import 'dart:math';
 
@@ -167,15 +168,7 @@ class Auth_Provider_Bavly extends ChangeNotifier {
         profilePic: snapshot['profilePic'],
         phoneNumber: snapshot['phoneNumber'],
       );
-      _uid = UserModel(
-              name: name,
-              email: email,
-              bio: bio,
-              profilePic: profilePic,
-              createdAt: createdAt,
-              phoneNumber: phoneNumber,
-              uid: uid)
-          .uid;
+      _uid = UserModel.uid;
     });
   }
 
