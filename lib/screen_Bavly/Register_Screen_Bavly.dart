@@ -1,7 +1,9 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:phone_auth_flutter_project/Provider_Bavly/auth_provider.dart';
 import 'package:phone_auth_flutter_project/Widget_bavly/Custom_Button_Bavly.dart';
+import 'package:provider/provider.dart';
 
 class RegisterScreen_Bavly extends StatefulWidget {
   const RegisterScreen_Bavly({super.key});
@@ -146,5 +148,10 @@ class _RegisterScreen_BavlyState extends State<RegisterScreen_Bavly> {
         ),
       ),
     );
+  }
+
+  void sendPhoneNumber() {
+    final ap = Provider.of<Auth_Provider_Bavly>(context, listen: false);
+    String phoneNumber = phoneController.text.trim();
   }
 }
