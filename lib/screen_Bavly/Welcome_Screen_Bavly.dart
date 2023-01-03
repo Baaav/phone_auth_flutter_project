@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:phone_auth_flutter_project/Provider_Bavly/auth_provider.dart';
 import 'package:phone_auth_flutter_project/Widget_bavly/Custom_Button_Bavly.dart';
+import 'package:phone_auth_flutter_project/screen_Bavly/Home_Screen_Bavly.dart';
 import 'package:phone_auth_flutter_project/screen_Bavly/Register_Screen_Bavly.dart';
 import 'package:provider/provider.dart';
 
@@ -51,14 +52,12 @@ class _welcomeState extends State<welcome> {
                         ? Navigator.push(
                             context,
                             MaterialPageRoute(
-                             
-                             )
+                                builder: (context) => const HomeScreenBavly()))
                         : Navigator.push(
                             context,
                             MaterialPageRoute(
-                             
-                             )
-                             );
+                                builder: (context) =>
+                                    const RegisterScreen_Bavly()));
                   },
                   text: "Get started",
                 ),
